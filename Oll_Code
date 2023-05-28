@@ -1,0 +1,2859 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+
+namespace BlackJack
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        //Правила
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (pictureBox2.Location == new Point(0, 0))
+            {
+                pictureBox2.Location = new Point(0, 600);
+            }
+            else
+            {
+                pictureBox2.Location = new Point(0, 0);
+            }
+                
+        }
+
+        //Выход
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //Ввод колоды и Рандомайзера
+        Random random = new Random();
+        double count = 0;
+        double count2 = 0;
+        string[] koloda = new string[13] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] mast = { "Черви", "Пики", "Буби", "Крести" };
+        
+        //double point = 100;
+        //int stavka = 0;
+
+        //Кнопка Начать
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //label6.Text = point.ToString();
+            //stavka = (int)numericUpDown1.Value;
+
+            //Возврат карт:
+            
+            //Возврат тузов
+            pictureBox4.Location = new Point(870, 84);
+            pictureBox5.Location = new Point(870, 168);
+            pictureBox6.Location = new Point(870, 252);
+            pictureBox7.Location = new Point(871, 336);
+            //Возврат королей
+            pictureBox8.Location = new Point(932, 84);
+            pictureBox9.Location = new Point(932, 168);
+            pictureBox10.Location = new Point(932, 252);
+            pictureBox11.Location = new Point(932, 336);
+            //Возврат дам
+            pictureBox12.Location = new Point(994, 84);
+            pictureBox13.Location = new Point(994, 168);
+            pictureBox14.Location = new Point(994, 252);
+            pictureBox15.Location = new Point(994, 336);
+            //Возврат вольтов
+            pictureBox16.Location = new Point(1056, 84);
+            pictureBox17.Location = new Point(1056, 168);
+            pictureBox18.Location = new Point(1056, 252);
+            pictureBox19.Location = new Point(1056, 336);
+            //Возврат десяток
+            pictureBox20.Location = new Point(1118, 84);
+            pictureBox21.Location = new Point(1118, 168);
+            pictureBox22.Location = new Point(1118, 252);
+            pictureBox23.Location = new Point(1118, 336);
+            //Возврат девяток
+            pictureBox24.Location = new Point(1180, 84);
+            pictureBox25.Location = new Point(1180, 168);
+            pictureBox26.Location = new Point(1180, 252);
+            pictureBox27.Location = new Point(1180, 336);
+            //Возврат восьмерок
+            pictureBox28.Location = new Point(1242, 84);
+            pictureBox29.Location = new Point(1242, 168);
+            pictureBox30.Location = new Point(1242, 252);
+            pictureBox31.Location = new Point(1242, 336);
+            //Возврат семерок
+            pictureBox32.Location = new Point(1303, 84);
+            pictureBox33.Location = new Point(1303, 168);
+            pictureBox34.Location = new Point(1303, 252);
+            pictureBox35.Location = new Point(1303, 336);
+            //Возврат шестерок
+            pictureBox36.Location = new Point(871, 421);
+            pictureBox37.Location = new Point(871, 505);
+            pictureBox38.Location = new Point(871, 589);
+            pictureBox39.Location = new Point(871, 673);
+            //Возврат пятерок
+            pictureBox40.Location = new Point(933, 421);
+            pictureBox41.Location = new Point(933, 505);
+            pictureBox42.Location = new Point(933, 589);
+            pictureBox43.Location = new Point(933, 673);
+            //Возврат четверок
+            pictureBox44.Location = new Point(994, 421);
+            pictureBox45.Location = new Point(994, 505);
+            pictureBox46.Location = new Point(994, 589);
+            pictureBox47.Location = new Point(994, 673);
+            //Возврат троек
+            pictureBox48.Location = new Point(1056, 421);
+            pictureBox49.Location = new Point(1056, 505);
+            pictureBox50.Location = new Point(1056, 589);
+            pictureBox51.Location = new Point(1056, 673);
+            //Возврат двоек
+            pictureBox52.Location = new Point(1118, 421);
+            pictureBox53.Location = new Point(1118, 505);
+            pictureBox54.Location = new Point(1118, 589);
+            pictureBox55.Location = new Point(1118, 673);
+
+            //Возврат победного сообщения
+            label5.Location = new Point(933, 0);
+            label5.Text = "Win";
+            
+            //Краты игрока
+            int a = random.Next(0, 13);
+            int b = random.Next(0, 4);
+            string s = koloda[a];
+            string z = mast[b];
+            string F = s + " " + z;
+
+            int c = random.Next(0, 13);
+            int d = random.Next(0, 4);
+            string r = koloda[c];
+            string t = mast[d];
+            string G = r + " " + t;
+
+            //Карты дилера
+            int A = random.Next(0, 13);
+            int B = random.Next(0, 4);
+            string S = koloda[A];
+            string Z = mast[B];
+            string f = S + " " + Z;
+            
+
+            //Сичтаю первую карту
+            if (s == "J" || s == "Q" || s == "K" || s == "A")
+            {
+                if (s == "A")
+                {
+                    count = 11;
+                    if (z == "Черви")
+                    {
+                        pictureBox5.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if(z == "Пики")
+                        {
+                            pictureBox7.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if(z == "Буби")
+                            {
+                                pictureBox4.Location = new Point(355, 289);
+                            }
+                            else
+                            {
+                                pictureBox6.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    count = 10;
+                    if (z == "Черви" & s == "K")
+                    {
+                        pictureBox9.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Пики" & s == "K")
+                        {
+                            pictureBox11.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Буби" & s == "K")
+                            {
+                                pictureBox8.Location = new Point(355, 289);
+                            }
+                            else
+                            {
+                                if (z == "Крести" & s == "K")
+                                {
+                                    pictureBox10.Location = new Point(355, 289);
+                                }
+                                else
+                                {
+                                    if (z == "Черви" & s == "Q")
+                                    {
+                                        pictureBox13.Location = new Point(355, 289);
+                                    }
+                                    else
+                                    {
+                                        if (z == "Пики" & s == "Q")
+                                        {
+                                            pictureBox15.Location = new Point(355, 289);
+                                        }
+                                        else
+                                        {
+                                            if (z == "Буби" & s == "Q")
+                                            {
+                                                pictureBox12.Location = new Point(355, 289);
+                                            }
+                                            else
+                                            {
+                                                if (z == "Крести" & s == "Q")
+                                                {
+                                                    pictureBox14.Location = new Point(355, 289);
+                                                }
+                                                else
+                                                {
+                                                    if (z == "Черви" & s == "J")
+                                                    {
+                                                        pictureBox17.Location = new Point(355, 289);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (z == "Пики" & s == "J")
+                                                        {
+                                                            pictureBox19.Location = new Point(355, 289);
+                                                        }
+                                                        else
+                                                        {
+                                                            if (z == "Буби" & s == "J")
+                                                            {
+                                                                pictureBox16.Location = new Point(355, 289);
+                                                            }
+                                                            else
+                                                            {
+                                                                if (z == "Крести" & s == "J")
+                                                                {
+                                                                    pictureBox18.Location = new Point(355, 289);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                count = Int32.Parse(s);
+
+                //Вывод десяток
+                if (z == "Черви" & s == "10")
+                {
+                    pictureBox21.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "10")
+                    {
+                        pictureBox23.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "10")
+                        {
+                            pictureBox20.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "10")
+                            {
+                                pictureBox22.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод девяток
+                if (z == "Черви" & s == "9")
+                {
+                    pictureBox25.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "9")
+                    {
+                        pictureBox27.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "9")
+                        {
+                            pictureBox24.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "9")
+                            {
+                                pictureBox26.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод восьмерок
+                if (z == "Черви" & s == "8")
+                {
+                    pictureBox29.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "8")
+                    {
+                        pictureBox31.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "8")
+                        {
+                            pictureBox28.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "8")
+                            {
+                                pictureBox30.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод семерок
+                if (z == "Черви" & s == "7")
+                {
+                    pictureBox33.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "7")
+                    {
+                        pictureBox35.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "7")
+                        {
+                            pictureBox32.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "7")
+                            {
+                                pictureBox34.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод шестерок
+                if (z == "Черви" & s == "6")
+                {
+                    pictureBox37.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "6")
+                    {
+                        pictureBox39.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "6")
+                        {
+                            pictureBox36.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "6")
+                            {
+                                pictureBox38.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод пятерок
+                if (z == "Черви" & s == "5")
+                {
+                    pictureBox41.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "5")
+                    {
+                        pictureBox43.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "5")
+                        {
+                            pictureBox40.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "5")
+                            {
+                                pictureBox42.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод четверок
+                if (z == "Черви" & s == "4")
+                {
+                    pictureBox45.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "4")
+                    {
+                        pictureBox47.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "4")
+                        {
+                            pictureBox44.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "4")
+                            {
+                                pictureBox46.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод троек
+                if (z == "Черви" & s == "3")
+                {
+                    pictureBox49.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "3")
+                    {
+                        pictureBox51.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "3")
+                        {
+                            pictureBox48.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "3")
+                            {
+                                pictureBox50.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод двоек
+                if (z == "Черви" & s == "2")
+                {
+                    pictureBox53.Location = new Point(355, 289);
+                }
+                else
+                {
+                    if (z == "Пики" & s == "2")
+                    {
+                        pictureBox55.Location = new Point(355, 289);
+                    }
+                    else
+                    {
+                        if (z == "Буби" & s == "2")
+                        {
+                            pictureBox52.Location = new Point(355, 289);
+                        }
+                        else
+                        {
+                            if (z == "Крести" & s == "2")
+                            {
+                                pictureBox54.Location = new Point(355, 289);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Прибавляю к ней вторую
+            if (r == "J" || r == "Q" || r == "K" || r == "A")
+            {
+                if (r == "A")
+                {
+                    count += 11;
+                    if (z == "Черви")
+                    {
+                        pictureBox5.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (z == "Пики")
+                        {
+                            pictureBox7.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (z == "Буби")
+                            {
+                                pictureBox4.Location = new Point(417, 289);
+                            }
+                            else
+                            {
+                                pictureBox6.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    count += 10;
+                    if (t == "Черви" & r == "K")
+                    {
+                        pictureBox9.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Пики" & r == "K")
+                        {
+                            pictureBox11.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Буби" & r == "K")
+                            {
+                                pictureBox8.Location = new Point(417, 289);
+                            }
+                            else
+                            {
+                                if (t == "Крести" & r == "K")
+                                {
+                                    pictureBox10.Location = new Point(417, 289);
+                                }
+                                else
+                                {
+                                    if (t == "Черви" & r == "Q")
+                                    {
+                                        pictureBox13.Location = new Point(417, 289);
+                                    }
+                                    else
+                                    {
+                                        if (t == "Пики" & r == "Q")
+                                        {
+                                            pictureBox15.Location = new Point(417, 289);
+                                        }
+                                        else
+                                        {
+                                            if (t == "Буби" & r == "Q")
+                                            {
+                                                pictureBox12.Location = new Point(417, 289);
+                                            }
+                                            else
+                                            {
+                                                if (t == "Крести" & r == "Q")
+                                                {
+                                                    pictureBox14.Location = new Point(417, 289);
+                                                }
+                                                else
+                                                {
+                                                    if (t == "Черви" & r == "J")
+                                                    {
+                                                        pictureBox17.Location = new Point(417, 289);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (t == "Пики" & r == "J")
+                                                        {
+                                                            pictureBox19.Location = new Point(417, 289);
+                                                        }
+                                                        else
+                                                        {
+                                                            if (t == "Буби" & r == "J")
+                                                            {
+                                                                pictureBox16.Location = new Point(417, 289);
+                                                            }
+                                                            else
+                                                            {
+                                                                if (t == "Крести" & r == "J")
+                                                                {
+                                                                    pictureBox18.Location = new Point(417, 289);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                count += Int32.Parse(r);
+
+                //Вывод десяток
+                if (t == "Черви" & r == "10")
+                {
+                    pictureBox21.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "10")
+                    {
+                        pictureBox23.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "10")
+                        {
+                            pictureBox20.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "10")
+                            {
+                                pictureBox22.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод девяток
+                if (t == "Черви" & r == "9")
+                {
+                    pictureBox25.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "9")
+                    {
+                        pictureBox27.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "9")
+                        {
+                            pictureBox24.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "9")
+                            {
+                                pictureBox26.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод восьмерок
+                if (t == "Черви" & r == "8")
+                {
+                    pictureBox29.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "8")
+                    {
+                        pictureBox31.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "8")
+                        {
+                            pictureBox28.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "8")
+                            {
+                                pictureBox30.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод семерок
+                if (t == "Черви" & r == "7")
+                {
+                    pictureBox33.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "7")
+                    {
+                        pictureBox35.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "7")
+                        {
+                            pictureBox32.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "7")
+                            {
+                                pictureBox34.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод шестерок
+                if (t == "Черви" & r == "6")
+                {
+                    pictureBox37.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "6")
+                    {
+                        pictureBox39.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "6")
+                        {
+                            pictureBox36.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "6")
+                            {
+                                pictureBox38.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод пятерок
+                if (t == "Черви" & r == "5")
+                {
+                    pictureBox41.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "5")
+                    {
+                        pictureBox43.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "5")
+                        {
+                            pictureBox40.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "5")
+                            {
+                                pictureBox42.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод четверок
+                if (t == "Черви" & r == "4")
+                {
+                    pictureBox45.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "4")
+                    {
+                        pictureBox47.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "4")
+                        {
+                            pictureBox44.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "4")
+                            {
+                                pictureBox46.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод троек
+                if (t == "Черви" & r == "3")
+                {
+                    pictureBox49.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "3")
+                    {
+                        pictureBox51.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "3")
+                        {
+                            pictureBox48.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "3")
+                            {
+                                pictureBox50.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод двоек
+                if (t == "Черви" & r == "2")
+                {
+                    pictureBox53.Location = new Point(417, 289);
+                }
+                else
+                {
+                    if (t == "Пики" & r == "2")
+                    {
+                        pictureBox55.Location = new Point(417, 289);
+                    }
+                    else
+                    {
+                        if (t == "Буби" & r == "2")
+                        {
+                            pictureBox52.Location = new Point(417, 289);
+                        }
+                        else
+                        {
+                            if (t == "Крести" & r == "2")
+                            {
+                                pictureBox54.Location = new Point(417, 289);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //===============================================
+            //Считаю первую карту дилера 
+            if (S == "J" || S == "Q" || S == "K" || S == "A")
+            {
+                if (S == "A")
+                {
+                    count2 = 11;
+                    if (Z == "Черви")
+                    {
+                        pictureBox5.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Пики")
+                        {
+                            pictureBox7.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Буби")
+                            {
+                                pictureBox4.Location = new Point(368, 122);
+                            }
+                            else
+                            {
+                                pictureBox6.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    count2 = 10;
+                    if (Z == "Черви" & S == "K")
+                    {
+                        pictureBox9.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Пики" & S == "K")
+                        {
+                            pictureBox11.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Буби" & S == "K")
+                            {
+                                pictureBox8.Location = new Point(368, 122);
+                            }
+                            else
+                            {
+                                if (Z == "Крести" & S == "K")
+                                {
+                                    pictureBox10.Location = new Point(368, 122);
+                                }
+                                else
+                                {
+                                    if (Z == "Черви" & S == "Q")
+                                    {
+                                        pictureBox13.Location = new Point(368, 122);
+                                    }
+                                    else
+                                    {
+                                        if (Z == "Пики" & S == "Q")
+                                        {
+                                            pictureBox15.Location = new Point(368, 122);
+                                        }
+                                        else
+                                        {
+                                            if (Z == "Буби" & S == "Q")
+                                            {
+                                                pictureBox12.Location = new Point(368, 122);
+                                            }
+                                            else
+                                            {
+                                                if (Z == "Крести" & S == "Q")
+                                                {
+                                                    pictureBox14.Location = new Point(368, 122);
+                                                }
+                                                else
+                                                {
+                                                    if (Z == "Черви" & S == "J")
+                                                    {
+                                                        pictureBox17.Location = new Point(368, 122);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (Z == "Пики" & S == "J")
+                                                        {
+                                                            pictureBox19.Location = new Point(368, 122);
+                                                        }
+                                                        else
+                                                        {
+                                                            if (Z == "Буби" & S == "J")
+                                                            {
+                                                                pictureBox16.Location = new Point(368, 122);
+                                                            }
+                                                            else
+                                                            {
+                                                                if (Z == "Крести" & S == "J")
+                                                                {
+                                                                    pictureBox18.Location = new Point(368, 122);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                count2 = Int32.Parse(S);
+
+                //Вывод десяток
+                if (Z == "Черви" & S == "10")
+                {
+                    pictureBox21.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "10")
+                    {
+                        pictureBox23.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "10")
+                        {
+                            pictureBox20.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "10")
+                            {
+                                pictureBox22.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод девяток
+                if (Z == "Черви" & S == "9")
+                {
+                    pictureBox25.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "9")
+                    {
+                        pictureBox27.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "9")
+                        {
+                            pictureBox24.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "9")
+                            {
+                                pictureBox26.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод восьмерок
+                if (Z == "Черви" & S == "8")
+                {
+                    pictureBox29.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "8")
+                    {
+                        pictureBox31.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "8")
+                        {
+                            pictureBox28.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "8")
+                            {
+                                pictureBox30.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод семерок
+                if (Z == "Черви" & S == "7")
+                {
+                    pictureBox33.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "7")
+                    {
+                        pictureBox35.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "7")
+                        {
+                            pictureBox32.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "7")
+                            {
+                                pictureBox34.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод шестерок
+                if (Z == "Черви" & S == "6")
+                {
+                    pictureBox37.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "6")
+                    {
+                        pictureBox39.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "6")
+                        {
+                            pictureBox36.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "6")
+                            {
+                                pictureBox38.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод пятерок
+                if (Z == "Черви" & S == "5")
+                {
+                    pictureBox41.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "5")
+                    {
+                        pictureBox43.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "5")
+                        {
+                            pictureBox40.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "5")
+                            {
+                                pictureBox42.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод четверок
+                if (Z == "Черви" & S == "4")
+                {
+                    pictureBox45.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "4")
+                    {
+                        pictureBox47.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "4")
+                        {
+                            pictureBox44.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "4")
+                            {
+                                pictureBox46.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод троек
+                if (Z == "Черви" & S == "3")
+                {
+                    pictureBox49.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "3")
+                    {
+                        pictureBox51.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "3")
+                        {
+                            pictureBox48.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "3")
+                            {
+                                pictureBox50.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод двоек
+                if (Z == "Черви" & S == "2")
+                {
+                    pictureBox53.Location = new Point(368, 122);
+                }
+                else
+                {
+                    if (Z == "Пики" & S == "2")
+                    {
+                        pictureBox55.Location = new Point(368, 122);
+                    }
+                    else
+                    {
+                        if (Z == "Буби" & S == "2")
+                        {
+                            pictureBox52.Location = new Point(368, 122);
+                        }
+                        else
+                        {
+                            if (Z == "Крести" & S == "2")
+                            {
+                                pictureBox54.Location = new Point(368, 122);
+                            }
+                        }
+                    }
+                }
+            }
+
+            double count3 = count2;
+
+            label1.Text = count.ToString();
+            label4.Text = count3.ToString();
+
+            //Размещение закрытой карты дилера
+            pictureBox3.Location = new Point(430, 122);
+            
+            //Проверка победы с первых двух карт игрока
+            if (count == 21)
+            {
+                label5.Text = "Вы победили набрав 21 очко!";
+                label5.Location = new Point(245, 202);
+            }
+            if (count == 22)
+            {
+                label5.Text = "Вы победили! Вы набрали золотой BlakJack!";
+                label5.Location = new Point(245, 202);
+            }
+        }
+
+        //Кнопка ещё
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //Возврат сообщения
+            label5.Location = new Point(933, 0);
+            label5.Text = "Win";
+
+            int aa = random.Next(0, 13);
+            int bb = random.Next(0, 4);
+            string ss = koloda[aa];
+            string zz = mast[bb];
+            string FF = ss + " " + zz;
+
+            //Ввод еще одной карты игрока
+            if (ss == "J" || ss == "Q" || ss == "K" || ss == "A")
+            {
+                if (ss == "A")
+                {
+                    count += 11;
+                    if (zz == "Черви")
+                    {
+                        pictureBox5.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Пики")
+                        {
+                            pictureBox7.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Буби")
+                            {
+                                pictureBox4.Location = new Point(479, 289);
+                            }
+                            else
+                            {
+                                pictureBox6.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    count += 10;
+                    if (zz == "Черви" & ss == "K")
+                    {
+                        pictureBox9.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Пики" & ss == "K")
+                        {
+                            pictureBox11.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Буби" & ss == "K")
+                            {
+                                pictureBox8.Location = new Point(479, 289);
+                            }
+                            else
+                            {
+                                if (zz == "Крести" & ss == "K")
+                                {
+                                    pictureBox10.Location = new Point(479, 289);
+                                }
+                                else
+                                {
+                                    if (zz == "Черви" & ss == "Q")
+                                    {
+                                        pictureBox13.Location = new Point(479, 289);
+                                    }
+                                    else
+                                    {
+                                        if (zz == "Пики" & ss == "Q")
+                                        {
+                                            pictureBox15.Location = new Point(479, 289);
+                                        }
+                                        else
+                                        {
+                                            if (zz == "Буби" & ss == "Q")
+                                            {
+                                                pictureBox12.Location = new Point(479, 289);
+                                            }
+                                            else
+                                            {
+                                                if (zz == "Крести" & ss == "Q")
+                                                {
+                                                    pictureBox14.Location = new Point(479, 289);
+                                                }
+                                                else
+                                                {
+                                                    if (zz == "Черви" & ss == "J")
+                                                    {
+                                                        pictureBox17.Location = new Point(479, 289);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (zz == "Пики" & ss == "J")
+                                                        {
+                                                            pictureBox19.Location = new Point(479, 289);
+                                                        }
+                                                        else
+                                                        {
+                                                            if (zz == "Буби" & ss == "J")
+                                                            {
+                                                                pictureBox16.Location = new Point(479, 289);
+                                                            }
+                                                            else
+                                                            {
+                                                                if (zz == "Крести" & ss == "J")
+                                                                {
+                                                                    pictureBox18.Location = new Point(479, 289);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                count += Int32.Parse(ss);
+
+                //Вывод десяток
+                if (zz == "Черви" & ss == "10")
+                {
+                    pictureBox21.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "10")
+                    {
+                        pictureBox23.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "10")
+                        {
+                            pictureBox20.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "10")
+                            {
+                                pictureBox22.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод девяток
+                if (zz == "Черви" & ss == "9")
+                {
+                    pictureBox25.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "9")
+                    {
+                        pictureBox27.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "9")
+                        {
+                            pictureBox24.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "9")
+                            {
+                                pictureBox26.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод восьмерок
+                if (zz == "Черви" & ss == "8")
+                {
+                    pictureBox29.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "8")
+                    {
+                        pictureBox31.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "8")
+                        {
+                            pictureBox28.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "8")
+                            {
+                                pictureBox30.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод семерок
+                if (zz == "Черви" & ss == "7")
+                {
+                    pictureBox33.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "7")
+                    {
+                        pictureBox35.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "7")
+                        {
+                            pictureBox32.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "7")
+                            {
+                                pictureBox34.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод шестерок
+                if (zz == "Черви" & ss == "6")
+                {
+                    pictureBox37.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "6")
+                    {
+                        pictureBox39.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "6")
+                        {
+                            pictureBox36.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "6")
+                            {
+                                pictureBox38.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод пятерок
+                if (zz == "Черви" & ss == "5")
+                {
+                    pictureBox41.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "5")
+                    {
+                        pictureBox43.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "5")
+                        {
+                            pictureBox40.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "5")
+                            {
+                                pictureBox42.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод четверок
+                if (zz == "Черви" & ss == "4")
+                {
+                    pictureBox45.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "4")
+                    {
+                        pictureBox47.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "4")
+                        {
+                            pictureBox44.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "4")
+                            {
+                                pictureBox46.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод троек
+                if (zz == "Черви" & ss == "3")
+                {
+                    pictureBox49.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "3")
+                    {
+                        pictureBox51.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "3")
+                        {
+                            pictureBox48.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "3")
+                            {
+                                pictureBox50.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод двоек
+                if (zz == "Черви" & ss == "2")
+                {
+                    pictureBox53.Location = new Point(479, 289);
+                }
+                else
+                {
+                    if (zz == "Пики" & ss == "2")
+                    {
+                        pictureBox55.Location = new Point(479, 289);
+                    }
+                    else
+                    {
+                        if (zz == "Буби" & ss == "2")
+                        {
+                            pictureBox52.Location = new Point(479, 289);
+                        }
+                        else
+                        {
+                            if (zz == "Крести" & ss == "2")
+                            {
+                                pictureBox54.Location = new Point(479, 289);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Проверка очков
+            if (count == 21)
+            {
+                label1.Text = count.ToString();
+                label5.Text = "Вы победили набрав 21 очко!";
+                label5.Location = new Point(245, 202);
+            }
+            else
+            {
+                if (count < 21)
+                {
+                    label1.Text = count.ToString();
+                }
+                else
+                {
+                    label1.Text = count.ToString();
+                    label5.Text = "Перебор! Вы проиграли.";
+                    label5.Location = new Point(245, 202);
+                }
+            }
+
+        }
+
+        //Кнопка хватит
+        private void button6_Click(object sender, EventArgs e)
+        {
+            //Удаление закрытой карты дилера
+            pictureBox3.Location = new Point(870, 0);
+
+            //Возврат сообщения
+            label5.Location = new Point(933, 0);
+            label5.Text = "Win";
+
+            int AA = random.Next(0, 13);
+            int BB = random.Next(0, 4);
+            string SS = koloda[AA];
+            string ZZ = mast[BB];
+            string fF = SS + " " + ZZ;
+
+            int CC = random.Next(0, 13);
+            int DD = random.Next(0, 4);
+            string RR = koloda[CC];
+            string TT = mast[DD];
+            string gg = RR + " " + TT;
+
+            //Вторая карта дилера
+            int C = random.Next(0, 13);
+            int D = random.Next(0, 4);
+            string R = koloda[C];
+            string T = mast[D];
+            string g = R + " " + T;
+
+            //Прибавляю к первой карты дилера вторую
+            if (R == "J" || R == "Q" || R == "K" || R == "A")
+            {
+                if (R == "A")
+                {
+                    count2 += 11;
+                    if (T == "Черви")
+                    {
+                        pictureBox5.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Пики")
+                        {
+                            pictureBox7.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Буби")
+                            {
+                                pictureBox4.Location = new Point(430, 122);
+                            }
+                            else
+                            {
+                                pictureBox6.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    count2 += 10;
+                    if (T == "Черви" & R == "K")
+                    {
+                        pictureBox9.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Пики" & R == "K")
+                        {
+                            pictureBox11.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Буби" & R == "K")
+                            {
+                                pictureBox8.Location = new Point(430, 122);
+                            }
+                            else
+                            {
+                                if (T == "Крести" & R == "K")
+                                {
+                                    pictureBox10.Location = new Point(430, 122);
+                                }
+                                else
+                                {
+                                    if (T == "Черви" & R == "Q")
+                                    {
+                                        pictureBox13.Location = new Point(430, 122);
+                                    }
+                                    else
+                                    {
+                                        if (T == "Пики" & R == "Q")
+                                        {
+                                            pictureBox15.Location = new Point(430, 122);
+                                        }
+                                        else
+                                        {
+                                            if (T == "Буби" & R == "Q")
+                                            {
+                                                pictureBox12.Location = new Point(430, 122);
+                                            }
+                                            else
+                                            {
+                                                if (T == "Крести" & R == "Q")
+                                                {
+                                                    pictureBox14.Location = new Point(430, 122);
+                                                }
+                                                else
+                                                {
+                                                    if (T == "Черви" & R == "J")
+                                                    {
+                                                        pictureBox17.Location = new Point(430, 122);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (T == "Пики" & R == "J")
+                                                        {
+                                                            pictureBox19.Location = new Point(430, 122);
+                                                        }
+                                                        else
+                                                        {
+                                                            if (T == "Буби" & R == "J")
+                                                            {
+                                                                pictureBox16.Location = new Point(430, 122);
+                                                            }
+                                                            else
+                                                            {
+                                                                if (T == "Крести" & R == "J")
+                                                                {
+                                                                    pictureBox18.Location = new Point(430, 122);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                count2 += Int32.Parse(R);
+
+                //Вывод десяток
+                if (T == "Черви" & R == "10")
+                {
+                    pictureBox21.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "10")
+                    {
+                        pictureBox23.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "10")
+                        {
+                            pictureBox20.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "10")
+                            {
+                                pictureBox22.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод девяток
+                if (T == "Черви" & R == "9")
+                {
+                    pictureBox25.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "9")
+                    {
+                        pictureBox27.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "9")
+                        {
+                            pictureBox24.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "9")
+                            {
+                                pictureBox26.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод восьмерок
+                if (T == "Черви" & R == "8")
+                {
+                    pictureBox29.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "8")
+                    {
+                        pictureBox31.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "8")
+                        {
+                            pictureBox28.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "8")
+                            {
+                                pictureBox30.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод семерок
+                if (T == "Черви" & R == "7")
+                {
+                    pictureBox33.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "7")
+                    {
+                        pictureBox35.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "7")
+                        {
+                            pictureBox32.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "7")
+                            {
+                                pictureBox34.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод шестерок
+                if (T == "Черви" & R == "6")
+                {
+                    pictureBox37.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "6")
+                    {
+                        pictureBox39.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "6")
+                        {
+                            pictureBox36.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "6")
+                            {
+                                pictureBox38.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод пятерок
+                if (T == "Черви" & R == "5")
+                {
+                    pictureBox41.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "5")
+                    {
+                        pictureBox43.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "5")
+                        {
+                            pictureBox40.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "5")
+                            {
+                                pictureBox42.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод четверок
+                if (T == "Черви" & R == "4")
+                {
+                    pictureBox45.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "4")
+                    {
+                        pictureBox47.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "4")
+                        {
+                            pictureBox44.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "4")
+                            {
+                                pictureBox46.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод троек
+                if (T == "Черви" & R == "3")
+                {
+                    pictureBox49.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "3")
+                    {
+                        pictureBox51.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "3")
+                        {
+                            pictureBox48.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "3")
+                            {
+                                pictureBox50.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+
+                //Вывод двоек
+                if (T == "Черви" & R == "2")
+                {
+                    pictureBox53.Location = new Point(430, 122);
+                }
+                else
+                {
+                    if (T == "Пики" & R == "2")
+                    {
+                        pictureBox55.Location = new Point(430, 122);
+                    }
+                    else
+                    {
+                        if (T == "Буби" & R == "2")
+                        {
+                            pictureBox52.Location = new Point(430, 122);
+                        }
+                        else
+                        {
+                            if (T == "Крести" & R == "2")
+                            {
+                                pictureBox54.Location = new Point(430, 122);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Проверка победы с первых двух карт дилера
+            if (count2 == 21)
+            {
+                label5.Text = "Вы проиграли! Дилер набрал 21 очко";
+                label5.Location = new Point(245, 202);
+            }
+            if (count2 == 22)
+            {
+                label5.Text = "Вы проиграли! Дилер набрал золотой BlakJack!";
+                label5.Location = new Point(245, 202);
+            }
+
+
+            //Ввод еще одной карты дилера
+            if (count2 <= count)
+            {
+                if (SS == "J" || SS == "Q" || SS == "K" || SS == "A")
+                {
+                    if (SS == "A")
+                    {
+                        count2 += 11;
+                        if (ZZ == "Черви")
+                        {
+                            pictureBox5.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Пики")
+                            {
+                                pictureBox7.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Буби")
+                                {
+                                    pictureBox4.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    pictureBox6.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        count2 += 10;
+                        if (ZZ == "Черви" & SS == "K")
+                        {
+                            pictureBox9.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Пики" & SS == "K")
+                            {
+                                pictureBox11.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Буби" & SS == "K")
+                                {
+                                    pictureBox8.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (ZZ == "Крести" & SS == "K")
+                                    {
+                                        pictureBox10.Location = new Point(492, 122);
+                                    }
+                                    else
+                                    {
+                                        if (ZZ == "Черви" & SS == "Q")
+                                        {
+                                            pictureBox13.Location = new Point(492, 122);
+                                        }
+                                        else
+                                        {
+                                            if (ZZ == "Пики" & SS == "Q")
+                                            {
+                                                pictureBox15.Location = new Point(492, 122);
+                                            }
+                                            else
+                                            {
+                                                if (ZZ == "Буби" & SS == "Q")
+                                                {
+                                                    pictureBox12.Location = new Point(492, 122);
+                                                }
+                                                else
+                                                {
+                                                    if (ZZ == "Крести" & SS == "Q")
+                                                    {
+                                                        pictureBox14.Location = new Point(492, 122);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (ZZ == "Черви" & SS == "J")
+                                                        {
+                                                            pictureBox17.Location = new Point(492, 122);
+                                                        }
+                                                        else
+                                                        {
+                                                            if (ZZ == "Пики" & SS == "J")
+                                                            {
+                                                                pictureBox19.Location = new Point(492, 122);
+                                                            }
+                                                            else
+                                                            {
+                                                                if (ZZ == "Буби" & SS == "J")
+                                                                {
+                                                                    pictureBox16.Location = new Point(492, 122);
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (ZZ == "Крести" & SS == "J")
+                                                                    {
+                                                                        pictureBox18.Location = new Point(492, 122);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    count2 += Int32.Parse(SS);
+                    
+                    //Вывод десяток
+                    if (ZZ == "Черви" & SS == "10")
+                    {
+                        pictureBox21.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "10")
+                        {
+                            pictureBox23.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "10")
+                            {
+                                pictureBox20.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "10")
+                                {
+                                    pictureBox22.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+
+                    //Вывод девяток
+                    if (ZZ == "Черви" & SS == "9")
+                    {
+                        pictureBox25.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "9")
+                        {
+                            pictureBox27.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "9")
+                            {
+                                pictureBox24.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "9")
+                                {
+                                    pictureBox26.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+                
+                    //Вывод восьмерок
+                    if (ZZ == "Черви" & SS == "8")
+                    {
+                        pictureBox29.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "8")
+                        {
+                            pictureBox31.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "8")
+                            {
+                                pictureBox28.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "8")
+                                {
+                                    pictureBox30.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+
+                    //Вывод семерок
+                    if (ZZ == "Черви" & SS == "7")
+                    {
+                        pictureBox33.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "7")
+                        {
+                            pictureBox35.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "7")
+                            {
+                                pictureBox32.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "7")
+                                {
+                                    pictureBox34.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+
+                    //Вывод шестерок
+                    if (ZZ == "Черви" & SS == "6")
+                    {
+                        pictureBox37.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "6")
+                        {
+                            pictureBox39.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "6")
+                            {
+                                pictureBox36.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "6")
+                                {
+                                    pictureBox38.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+
+                    //Вывод пятерок
+                    if (ZZ == "Черви" & SS == "5")
+                    {
+                        pictureBox41.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "5")
+                        {
+                            pictureBox43.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "5")
+                            {
+                                pictureBox40.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "5")
+                                {
+                                    pictureBox42.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+
+                    //Вывод четверок
+                    if (ZZ == "Черви" & SS == "4")
+                    {
+                        pictureBox45.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "4")
+                        {
+                            pictureBox47.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "4")
+                            {
+                                pictureBox44.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "4")
+                                {
+                                    pictureBox46.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+
+                    //Вывод троек
+                    if (ZZ == "Черви" & SS == "3")
+                    {
+                        pictureBox49.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "3")
+                        {
+                            pictureBox51.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "3")
+                            {
+                                pictureBox48.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "3")
+                                {
+                                    pictureBox50.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+
+                    //Вывод двоек
+                    if (ZZ == "Черви" & SS == "2")
+                    {
+                        pictureBox53.Location = new Point(492, 122);
+                    }
+                    else
+                    {
+                        if (ZZ == "Пики" & SS == "2")
+                        {
+                            pictureBox55.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (ZZ == "Буби" & SS == "2")
+                            {
+                                pictureBox52.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (ZZ == "Крести" & SS == "2")
+                                {
+                                    pictureBox54.Location = new Point(492, 122);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (count2 > 21)
+                {
+                    label4.Text = count2.ToString();
+                    label5.Text = "Вы победили! У дилера перебор.";
+                    label5.Location = new Point(245, 202);
+                }
+            }
+            else
+            {
+                if (count2 == count & count2 < 17)
+                {
+                    if (RR == "J" || RR == "Q" || RR == "K" || RR == "A")
+                    {
+                        if (RR == "A")
+                        {
+                            count2 += 11;
+                            if (TT == "Черви")
+                            {
+                                pictureBox5.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Пики")
+                                {
+                                    pictureBox7.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Буби")
+                                    {
+                                        pictureBox4.Location = new Point(492, 122);
+                                    }
+                                    else
+                                    {
+                                        pictureBox6.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            count2 += 10;
+                            if (TT == "Черви" & RR == "K")
+                            {
+                                pictureBox9.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Пики" & RR == "K")
+                                {
+                                    pictureBox11.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Буби" & RR == "K")
+                                    {
+                                        pictureBox8.Location = new Point(492, 122);
+                                    }
+                                    else
+                                    {
+                                        if (TT == "Крести" & RR == "K")
+                                        {
+                                            pictureBox10.Location = new Point(492, 122);
+                                        }
+                                        else
+                                        {
+                                            if (TT == "Черви" & RR == "Q")
+                                            {
+                                                pictureBox13.Location = new Point(492, 122);
+                                            }
+                                            else
+                                            {
+                                                if (TT == "Пики" & RR == "Q")
+                                                {
+                                                    pictureBox15.Location = new Point(492, 122);
+                                                }
+                                                else
+                                                {
+                                                    if (TT == "Буби" & RR == "Q")
+                                                    {
+                                                        pictureBox12.Location = new Point(492, 122);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (TT == "Крести" & RR == "Q")
+                                                        {
+                                                            pictureBox14.Location = new Point(492, 122);
+                                                        }
+                                                        else
+                                                        {
+                                                            if (TT == "Черви" & RR == "J")
+                                                            {
+                                                                pictureBox17.Location = new Point(492, 122);
+                                                            }
+                                                            else
+                                                            {
+                                                                if (TT == "Пики" & RR == "J")
+                                                                {
+                                                                    pictureBox19.Location = new Point(492, 122);
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (TT == "Буби" & RR == "J")
+                                                                    {
+                                                                        pictureBox16.Location = new Point(492, 122);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (TT == "Крести" & RR == "J")
+                                                                        {
+                                                                            pictureBox18.Location = new Point(492, 122);
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        count2 += Int32.Parse(RR);
+
+                        //Вывод десяток
+                        if (TT == "Черви" & RR == "10")
+                        {
+                            pictureBox21.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "10")
+                            {
+                                pictureBox23.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "10")
+                                {
+                                    pictureBox20.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "10")
+                                    {
+                                        pictureBox22.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Вывод девяток
+                        if (TT == "Черви" & RR == "9")
+                        {
+                            pictureBox25.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "9")
+                            {
+                                pictureBox27.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "9")
+                                {
+                                    pictureBox24.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "9")
+                                    {
+                                        pictureBox26.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Вывод восьмерок
+                        if (TT == "Черви" & RR == "8")
+                        {
+                            pictureBox29.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "8")
+                            {
+                                pictureBox31.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "8")
+                                {
+                                    pictureBox28.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "8")
+                                    {
+                                        pictureBox30.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Вывод семерок
+                        if (TT == "Черви" & RR == "7")
+                        {
+                            pictureBox33.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "7")
+                            {
+                                pictureBox35.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "7")
+                                {
+                                    pictureBox32.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "7")
+                                    {
+                                        pictureBox34.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Вывод шестерок
+                        if (TT == "Черви" & RR == "6")
+                        {
+                            pictureBox37.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "6")
+                            {
+                                pictureBox39.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "6")
+                                {
+                                    pictureBox36.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "6")
+                                    {
+                                        pictureBox38.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Вывод пятерок
+                        if (TT == "Черви" & RR == "5")
+                        {
+                            pictureBox41.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "5")
+                            {
+                                pictureBox43.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "5")
+                                {
+                                    pictureBox40.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "5")
+                                    {
+                                        pictureBox42.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Вывод четверок
+                        if (TT == "Черви" & RR == "4")
+                        {
+                            pictureBox45.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "4")
+                            {
+                                pictureBox47.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "4")
+                                {
+                                    pictureBox44.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "4")
+                                    {
+                                        pictureBox46.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Вывод троек
+                        if (TT == "Черви" & RR == "3")
+                        {
+                            pictureBox49.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "3")
+                            {
+                                pictureBox51.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "3")
+                                {
+                                    pictureBox48.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "3")
+                                    {
+                                        pictureBox50.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Вывод двоек
+                        if (TT == "Черви" & RR == "2")
+                        {
+                            pictureBox53.Location = new Point(492, 122);
+                        }
+                        else
+                        {
+                            if (TT == "Пики" & RR == "2")
+                            {
+                                pictureBox55.Location = new Point(492, 122);
+                            }
+                            else
+                            {
+                                if (TT == "Буби" & RR == "2")
+                                {
+                                    pictureBox52.Location = new Point(492, 122);
+                                }
+                                else
+                                {
+                                    if (TT == "Крести" & RR == "2")
+                                    {
+                                        pictureBox54.Location = new Point(492, 122);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (count2 <= 21)
+                    {
+                        label4.Text = count2.ToString();
+                        label5.Text = "Вы проиграли! Дилер набрал больш очков.";
+                        label5.Location = new Point(245, 202);
+                    }
+                    else
+                    {
+                        label4.Text = count2.ToString();
+                        label5.Text = "Вы победили! У дилера перебор.";
+                        label5.Location = new Point(245, 202);
+                    }
+                    
+                }
+                else
+                {
+                    if (count2 == count & count2 >= 17)
+                    {
+                        label4.Text = count2.ToString();
+                        label5.Text = "Ничья! У вас поровну очков";
+                        label5.Location = new Point(245, 202);
+                    }
+                    if (count2 > count & count2 <= 21)
+                    {
+                        label4.Text = count2.ToString();
+                        label5.Text = "Вы проиграли! Дилер набрал больш очков.";
+                        label5.Location = new Point(245, 202);
+                    }
+                }
+            }
+
+            //Проверка победы дилера
+            if (count2 > count & count2 <= 21)
+            {
+                label4.Text = count2.ToString();
+                label5.Text = "Вы проиграли! Дилер набрал больш очков.";
+                label5.Location = new Point(245, 202);
+            }
+            if (count2 < count & count <= 21)
+            {
+                label4.Text = count2.ToString();
+                label5.Text = "Вы победили! Дилер набрал меньше очков.";
+                label5.Location = new Point(245, 202);
+            }
+            if(count2 == count)
+            {
+                label4.Text = count2.ToString();
+                label5.Text = "Вы проиграли! Дилер набрал столько же очков.";
+                label5.Location = new Point(245, 202);
+            }
+
+            //Вывод счета дилера
+            label4.Text = count2.ToString();
+        }
+    }
+}
